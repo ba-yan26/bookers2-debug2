@@ -1,0 +1,35 @@
+<table class='table'>
+  <tr><%= image_tag user.get_profile_image, size:'100x100' %></tr>
+  <tr>
+	  <th>name</th>
+	  <th><%= user.name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th><%= user.introduction %></th>
+  </tr>
+  <tr>
+	  <th>follows</th>
+	  <th class="following_count_info_<%= user.id %>">
+	    <%= render 'relationships/following_count_info', user: user %>
+    </th>
+  </tr>
+  <tr>
+	  <th>followers</th>
+	  <th class="follower_count_info_<%= user.id %>">
+	    <%= render 'relationships/follower_count_info', user: user %>
+	  </th>
+  </tr>
+</table>
+
+<div class='row'>
+  <% if user == current_user %>
+    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
+      <i class="fas fa-user-cog"></i>
+    <% end %>
+  <% else %>
+  <div class="follow_btn_<%= user.id %>">
+    <%= render 'relationships/follow', user: user %>
+  </div>
+  <% end %>
+</div>

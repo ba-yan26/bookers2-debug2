@@ -1,0 +1,33 @@
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <%= form_with model: @group, local:true do |f| %>
+        <% if @group.errors.any? %>
+          <%= @group.errors.count %>error
+            <ul>
+              <% @group.errors.messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+        <% end %>
+
+        <h2>Group Create</h2>
+        <div class="form-group">
+          <%= f.label :グループ名 %>
+          <%= f.text_field :name, class:"form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :紹介文 %>
+          <%= f.text_area :introduction, rows:'5', class:"form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :グループ画像 %>
+          <%= f.file_field :image, class: "form-control-file", accept: 'image/*' %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "Group Create", class: "btn btn-info" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

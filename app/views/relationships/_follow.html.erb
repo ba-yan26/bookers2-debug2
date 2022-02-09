@@ -1,0 +1,11 @@
+<% if user != current_user %>
+  <% if user.is_followed_by?(current_user) %>
+    <%= link_to user_relationships_path(user), method: :delete, remote:true do %>
+      <button class="btn btn-danger">フォロー解除</button>
+    <% end %>
+  <% else %>
+    <%= link_to user_relationships_path(user), method: :post, remote:true do %>
+      <button class="btn btn-primary">フォロー</button>
+    <% end %>
+  <% end %>
+<% end %>

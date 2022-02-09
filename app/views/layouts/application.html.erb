@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2Ver2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <%= render 'layouts/header' %>
+      <main>
+        <p id="notice"><%= notice %></p>
+        <div class="text-center">
+          <%= form_with url: search_path, method: :get, local:true do |f| %>
+            <%= f.text_field :word %>
+            <!-- 入力されたものをwordとして送る -->
+            <%= f.select :range, options_for_select([['User'],['Book']]) %>
+            <!-- UserかBookが選択されて、その内容をrangeとして送る -->
+            <%= f.select :search, options_for_select([["完全一致","perfect_match"],["前方一致","forward_match"],["後方一致","backforward_match"],["部分一致","partial_match"]]) %>
+            <!-- 4つのどれかが選択されsearchとして送る -->
+            <%= f.submit "検索" %>
+          <% end %>
+        </div>
+        <%= yield %>
+      </main>
+    <%= render 'layouts/footer' %>
+  </body>
+</html>
