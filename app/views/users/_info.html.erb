@@ -32,4 +32,8 @@
     <%= render 'relationships/follow', user: user %>
   </div>
   <% end %>
+
+  <% if current_user != user && current_user.is_followed_by?(user) && user.is_followed_by?(current_user) %>
+    <%= link_to 'Begin Chat', chat_path(user.id) %>
+  <% end %>
 </div>

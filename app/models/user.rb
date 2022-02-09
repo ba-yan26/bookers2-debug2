@@ -15,6 +15,9 @@ class User < ApplicationRecord
   # あるユーザーをフォローしている人をrelationshipテーブルを介して取ってくる
   has_many :group_users
   has_many :groups, through: :group_users
+  
+  has_many :user_room, dependent: :destroy
+  has_many :chats, dependent: :destroy
 
   has_one_attached :profile_image
 
