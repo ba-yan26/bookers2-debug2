@@ -8,10 +8,16 @@ class Book < ApplicationRecord
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
 
+  is_impressionable counter_cache: true
+  # bookモデルでimpressionistが使えるようになる
+  # impressions_countカラムがupdateされるようになる
+
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
+
+
 
   def self.looks(searches,words)
     if searches == "perfect_match"
