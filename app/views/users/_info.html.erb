@@ -23,11 +23,14 @@
 </table>
 
 <div class='row'>
-  <% if user == current_user %>
-    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
-      <i class="fas fa-user-cog"></i>
-    <% end %>
-  <% else %>
+  <% if !(user.name == "guestuser") %>
+  <!-- user.name(ユーザーの名前)がgusetuserじゃないなら下記を -->
+    <% if user == current_user %>
+      <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
+        <i class="fas fa-user-cog"></i>
+      <% end %>
+    <% else %>
+  <% end %>
   <div class="follow_btn_<%= user.id %>">
     <%= render 'relationships/follow', user: user %>
   </div>

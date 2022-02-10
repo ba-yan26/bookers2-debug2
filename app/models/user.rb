@@ -15,11 +15,11 @@ class User < ApplicationRecord
   # あるユーザーをフォローしている人をrelationshipテーブルを介して取ってくる
   has_many :group_users
   has_many :groups, through: :group_users
-  
+
   has_many :user_room, dependent: :destroy
   has_many :chats, dependent: :destroy
   has_many :view_counts, dependent: :destroy
-  
+
 
   has_one_attached :profile_image
 
@@ -49,6 +49,14 @@ class User < ApplicationRecord
       @user = User.where("name LIKE ?", "%#{words}%")
     else
       @user = User.all
+    end
+  end
+
+  def self.guest
+    find_or_create_by!(name: 'guestuser', email:'guest@example.com')do |user|
+    # find_or_create_byはデータの検索と作成を自動的に判断して処理を行うメソッド
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
     end
   end
 end
