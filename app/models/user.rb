@@ -18,6 +18,8 @@ class User < ApplicationRecord
   
   has_many :user_room, dependent: :destroy
   has_many :chats, dependent: :destroy
+  has_many :view_counts, dependent: :destroy
+  
 
   has_one_attached :profile_image
 
