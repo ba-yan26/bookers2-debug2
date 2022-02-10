@@ -6,21 +6,18 @@ class Book < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   has_many :view_counts, dependent: :destroy
 
-  validates :title,presence:true
-  validates :body,presence:true,length:{maximum:200}
+  validates :title, presence: true
+  validates :body, presence: true, length: { maximum: 200 }
 
   is_impressionable counter_cache: true
   # bookモデルでimpressionistが使えるようになる
   # impressions_countカラムがupdateされるようになる
 
-
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
 
-
-
-  def self.looks(searches,words)
+  def self.looks(searches, words)
     if searches == "perfect_match"
       @book = Book.where("title LIKE(?) OR body LIKE(?)", "#{words}", "#{words}")
     elsif searches == "forward_match"
@@ -33,5 +30,4 @@ class Book < ApplicationRecord
       @book = Book.all
     end
   end
-
 end

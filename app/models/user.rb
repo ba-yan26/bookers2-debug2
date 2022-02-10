@@ -20,15 +20,13 @@ class User < ApplicationRecord
   has_many :chats, dependent: :destroy
   has_many :view_counts, dependent: :destroy
 
-
   has_one_attached :profile_image
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
-  validates :introduction, length: {maximum: 50}
-
+  validates :introduction, length: { maximum: 50 }
 
   def get_profile_image
-    (profile_image.attached?) ? profile_image : 'no_image.jpg'
+    profile_image.attached? ? profile_image : 'no_image.jpg'
   end
 
   def is_followed_by?(user)
@@ -38,7 +36,7 @@ class User < ApplicationRecord
     # following_id: user.idでuseridをfollowingに代入
   end
 
-  def self.looks(searches,words)
+  def self.looks(searches, words)
     if searches == "perfect_match"
       @user = User.where("name LIKE ?", "#{words}")
     elsif searches == "forward_match"
@@ -53,8 +51,8 @@ class User < ApplicationRecord
   end
 
   def self.guest
-    find_or_create_by!(name: 'guestuser', email:'guest@example.com')do |user|
-    # find_or_create_byはデータの検索と作成を自動的に判断して処理を行うメソッド
+    find_or_create_by!(name: 'guestuser', email: 'guest@example.com') do |user|
+      # find_or_create_byはデータの検索と作成を自動的に判断して処理を行うメソッド
       user.password = SecureRandom.urlsafe_base64
       user.name = "guestuser"
     end
